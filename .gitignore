@@ -1,0 +1,17 @@
+menv/
+Sales_Management/Sales_Management/__init__.py
+Sales_Management/Sales_Management/__pycache__/
+Sales_Management/users_app/__pycache__/
+Sales_Management/users_app/api/__pycache__/
+Sales_Management/users_app/api/*__pycache__
+Sales_Management/users_app/api/models/*__pycache__
+Sales_Management/users_app/api/serializers/*__pycache__
+Sales_Management/users_app/api/views/*__pycache__
+Sales_Management/sales_management_app/*__pycache__
+Sales_Management/sales_management_app/api/*__pycache__
+Sales_Management/sales_management_app/api/models/*__pycache__
+Sales_Management/sales_management_app/api/serializers/*__pycache__
+Sales_Management/sales_management_app/api/views/*__pycache__
+Sales_Management/sales_management_app/api/models/*__pycache__
+Sales_Management/sales_management_app/migrations
+Sales_Management/users_app/migrations
