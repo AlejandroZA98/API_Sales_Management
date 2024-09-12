@@ -18,6 +18,9 @@ from sales_management_app.api.views.production_detail_view import ProductionDeta
 from sales_management_app.api.views.payments_view import PaymentsView
 from sales_management_app.api.views.create_payment_view import CreatePaymentsView
 from sales_management_app.api.views.payment_detail_view import PaymentDetailView
+from sales_management_app.api.views.debts_to_pay_view import DebtstoPayView
+from sales_management_app.api.views.create_debt_to_pay_view import CreateDebttoPay
+from sales_management_app.api.views.debts_to_pay_detail_view import DebtstoPayDetailView
 
 urlpatterns = [
     path('clients/',ClientsView.as_view(),name='clients'),
@@ -38,5 +41,8 @@ urlpatterns = [
     path('payments/',PaymentsView.as_view(),name='payments'),
     path('<int:pk>/create-payment/',CreatePaymentsView.as_view(),name='create-payment'),
     path('payment-detail/<int:pk>/',PaymentDetailView.as_view(),name='payment-detail'),
+    path('debtstopay/',DebtstoPayView.as_view(),name='debtstopay'),
+    path('<int:pk>/create-debttopay/',CreateDebttoPay.as_view(),name='create-debttopay'),
+    path('debtstopay-detail/<int:pk>/',DebtstoPayDetailView.as_view(),name='debtstopay-detail'),
 
 ]
