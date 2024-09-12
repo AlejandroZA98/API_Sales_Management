@@ -15,6 +15,9 @@ from sales_management_app.api.views.sell_detail_view import SellDetailView
 from sales_management_app.api.views.productions_view import ProductionView
 from sales_management_app.api.views.create_production_view import CreateProductionView
 from sales_management_app.api.views.production_detail_view import ProductionDetailView
+from sales_management_app.api.views.payments_view import PaymentsView
+from sales_management_app.api.views.create_payment_view import CreatePaymentsView
+from sales_management_app.api.views.payment_detail_view import PaymentDetailView
 
 urlpatterns = [
     path('clients/',ClientsView.as_view(),name='clients'),
@@ -32,5 +35,8 @@ urlpatterns = [
     path('productions/',ProductionView.as_view(),name='productions'),
     path('<int:pk>/create-production/',CreateProductionView.as_view(),name='create-production'),
     path('production-detail/<int:pk>/',ProductionDetailView.as_view(),name='production-detail'),
+    path('payments/',PaymentsView.as_view(),name='payments'),
+    path('<int:pk>/create-payment/',CreatePaymentsView.as_view(),name='create-payment'),
+    path('payment-detail/<int:pk>/',PaymentDetailView.as_view(),name='payment-detail'),
 
 ]
