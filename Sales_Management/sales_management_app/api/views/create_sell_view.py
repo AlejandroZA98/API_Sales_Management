@@ -10,7 +10,7 @@ class CreateSellsView(APIView):
         print("DATA",data)
         data['user']=pk
         
-        serializer=SellSerializer(data=data)
+        serializer=SellSerializer(data=data,context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data,status=201)

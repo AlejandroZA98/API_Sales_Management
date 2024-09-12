@@ -1,8 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from sales_management_app.api.models.clients_model import Client
 class Sell(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE)
+    client=models.ForeignKey(Client,on_delete=models.CASCADE)  
     concept=models.CharField(max_length=200)
     quantity=models.FloatField()
     type=models.CharField(max_length=30)
