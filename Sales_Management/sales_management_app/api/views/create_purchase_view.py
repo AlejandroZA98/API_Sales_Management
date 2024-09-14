@@ -10,7 +10,7 @@ class CreatePurchaseView(APIView):
         print("DATA",data)
         data['user']=pk
         
-        serializer=PurchaseSerializer(data=data)
+        serializer=PurchaseSerializer(data=data,context={'request':request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data,status=201)
