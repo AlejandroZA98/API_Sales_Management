@@ -7,10 +7,9 @@ class Sell(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE)
     client=models.ForeignKey(Client,on_delete=models.CASCADE)  
     concept=models.ManyToManyField(Product, related_name='sales')
-    quantity=models.FloatField()
+    details = models.JSONField(default=dict)  # Aquí almacenaremos {"quantity": x, "price": y}
     type=models.CharField(max_length=30)
-    unit_price=models.FloatField()
-    price=models.FloatField()
+    total_price=models.FloatField(null=True, blank=True)
     amount_paid=models.FloatField()
     settlement_date=models.DateTimeField(auto_now_add=True)
     debt_amount=models.FloatField()
