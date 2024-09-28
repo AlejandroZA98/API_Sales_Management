@@ -7,6 +7,7 @@ from sales_management_app.api.models.payments_model import Payment
 from sales_management_app.api.models.debts_to_pay_model import DebtstoPay
 from sales_management_app.api.models.production_model import Production
 from sales_management_app.api.models.inventary_ingredients_model import InventaryIngredients
+from sales_management_app.api.models.inventary_products_model import InventaryProducts
 
 # Register your models here.
 admin.site.register(Client)
@@ -17,3 +18,4 @@ admin.site.register(Payment)
 admin.site.register(DebtstoPay)
 admin.site.register(Production)
 admin.site.register(InventaryIngredients)
+admin.site.register(InventaryProducts)
