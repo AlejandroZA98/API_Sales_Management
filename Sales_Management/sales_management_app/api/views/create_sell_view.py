@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from sales_management_app.api.models.sells_model import Sell
 from sales_management_app.api.models.products_model import Product
+from sales_management_app.api.models.inventary_products_model import InventaryProducts
 from django.shortcuts import get_object_or_404
 
 class CreateSellsView(APIView):
@@ -34,7 +35,15 @@ class CreateSellsView(APIView):
             for index, concept_id in enumerate(concept_ids):
                 quantity = quantities[index]
                 product = get_object_or_404(Product, id=concept_id)
-
+                inventory_item = get_object_or_404(InventaryProducts, product=product.name)
+                if inventory_item.cuantity < quantity:
+                    return Response(
+                        {'error': f"No hay suficiente stock para el producto '{product.name}'."},
+                        status=status.HTTP_400_BAD_REQUEST
+                    )
+                inventory_item.cuantity -= quantity
+                inventory_item.save()
+                
                 total_price += quantity * product.unit_price
 
                 details_content[f"{concept_id}"] = {
