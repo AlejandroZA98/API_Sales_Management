@@ -19,12 +19,13 @@ class ProductionDetailView(APIView):
             production = Production.objects.get(pk=pk)
             print("PRODUCTION",production.ingredients,production.cuantity)
 
-            ingredients=production.ingredients
-            for ingredient in ingredients:
-                print("INGER",ingredient['ingredient'],ingredient['cuantity'])
-                inventory_item = InventaryIngredients.objects.get(ingredient=ingredient['ingredient'])
+            ingredients=production.ingredients.items()
+            print(ingredients)
+            for ingredient,cuantity in ingredients:
+                print(ingredient,cuantity)
+                inventory_item = InventaryIngredients.objects.get(ingredient=ingredient)
                 print("inventory_item",inventory_item.cuantity)
-                inventory_item.cuantity += ingredient['cuantity']*production.cuantity
+                inventory_item.cuantity += cuantity*production.cuantity
                 print("inventory_item",inventory_item.cuantity)
 
                 inventory_item.save()
@@ -33,4 +34,4 @@ class ProductionDetailView(APIView):
             return Response({'error': 'production not found'}, status=status.HTTP_404_NOT_FOUND)
 
         production.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response({"produccion eliminada y stock actualizado"},status=status.HTTP_204_NO_CONTENT)
