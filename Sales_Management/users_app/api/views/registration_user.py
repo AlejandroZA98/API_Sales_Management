@@ -18,6 +18,7 @@ class RegisterUser(APIView):
             data['username']=account.username
             data['email']=account.email
             
+            
             refresh = RefreshToken.for_user(account)
         
             data['token']= {
@@ -25,4 +26,9 @@ class RegisterUser(APIView):
                    'access': str(refresh.access_token),
                    }
             return Response(data)
-        return Response(serializer.errors)
+        
+        return Response({
+            'error': 'Registration failed',
+            'details': serializer.errors
+        }, status=status.HTTP_400_BAD_REQUEST)
+        
