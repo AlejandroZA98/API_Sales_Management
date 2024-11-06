@@ -19,7 +19,6 @@ class CreateProductionView(APIView):
         for ingredient_name, required_quantity in ingredients.items():
             try:
                 inventory_item = InventaryIngredients.objects.get(ingredient=ingredient_name)
-                print("inventory", inventory_item)
 
                 if inventory_item.cuantity < required_quantity * data['cuantity']:
                     return Response(

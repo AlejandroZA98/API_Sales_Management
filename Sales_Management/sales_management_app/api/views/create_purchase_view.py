@@ -8,7 +8,6 @@ from rest_framework import status
 class CreatePurchaseView(APIView):
     def post(self, request, pk):
         products_data = request.data 
-        print("DATA", products_data)
         
         purchases_created = []  
         

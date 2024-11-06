@@ -7,7 +7,6 @@ from rest_framework import status
 class CreateDebttoPay(APIView):
     def post(self,request,pk):
         data=request.data
-        print("DATA",data)
         data['user']=pk
         
         serializer=DebtstoPaySerializer(data=data,context={'request':request})
