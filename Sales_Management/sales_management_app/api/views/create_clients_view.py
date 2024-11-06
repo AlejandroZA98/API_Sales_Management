@@ -8,7 +8,6 @@ from rest_framework import status
 class CreateClientsView(APIView):
     def post(self, request,pk):
         data=request.data
-        print("DATA",data)
         data['user']=pk
         
         serializer=ClientSerializer(data=data,context={'request':request})

@@ -17,16 +17,11 @@ class ProductionDetailView(APIView):
     def delete(self, request, pk):
         try:
             production = Production.objects.get(pk=pk)
-            print("PRODUCTION",production.ingredients,production.cuantity)
 
             ingredients=production.ingredients.items()
-            print(ingredients)
             for ingredient,cuantity in ingredients:
-                print(ingredient,cuantity)
                 inventory_item = InventaryIngredients.objects.get(ingredient=ingredient)
-                print("inventory_item",inventory_item.cuantity)
                 inventory_item.cuantity += cuantity*production.cuantity
-                print("inventory_item",inventory_item.cuantity)
 
                 inventory_item.save()
 

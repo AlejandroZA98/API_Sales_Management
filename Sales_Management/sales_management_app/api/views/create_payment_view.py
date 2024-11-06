@@ -7,7 +7,6 @@ from rest_framework import status
 class CreatePaymentsView(APIView):
     def post(self, request, pk):
         data=request.data
-        print("DATA",data)
         data['user']=pk
         
         serializer=PaymentSerializer(data=data,context={'request':request})

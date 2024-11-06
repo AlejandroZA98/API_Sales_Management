@@ -9,7 +9,6 @@ from django.shortcuts import get_object_or_404
 class CreateSellsView(APIView):
     def post(self, request, pk):
         data = request.data
-        print("DATA", data)
         data['user'] = pk
 
         try:
