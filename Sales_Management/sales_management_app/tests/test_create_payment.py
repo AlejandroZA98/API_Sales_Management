@@ -26,8 +26,6 @@ class CreatePaymentsViewTest(APITestCase):
         }
         response = self.client.post(self.url, data, format='json')
 
-        print("Response Status Code:", response.status_code)
-        print("Response Data:", response.data)
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(response.data['amount'], data['amount'])
@@ -45,7 +43,6 @@ class CreatePaymentsViewTest(APITestCase):
         }
         response = self.client.post(self.url, data, format='json')
         
-        print(response.data)
         
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertIn("amount", response.data)
@@ -59,7 +56,6 @@ class CreatePaymentsViewTest(APITestCase):
         }
         response = self.client.post(self.url, data, format='json')
         
-        print(response.data)
         
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertIn("client", response.data)
@@ -74,7 +70,6 @@ class CreatePaymentsViewTest(APITestCase):
         }
         response = self.client.post(self.url, data, format='json')
         
-        print(response.data)
         
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertIn("amount", response.data)

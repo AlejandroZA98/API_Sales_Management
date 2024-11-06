@@ -57,7 +57,6 @@ class PaymentDetailViewTest(APITestCase):
 
         response = self.client.put(self.url, updated_data, format='json')
 
-        print("Response Data ACTUALIZADA:", response.data)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 

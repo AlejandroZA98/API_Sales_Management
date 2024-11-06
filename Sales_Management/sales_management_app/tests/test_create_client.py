@@ -29,8 +29,6 @@ class CreateClientsViewTest(APITestCase):
         url = reverse('create-clients', kwargs={'pk': self.user.pk})
         response = self.client.post(url, self.valid_data, format='json')
 
-        if response.status_code == 400:
-            print("Errores:", response.data)
         
         self.assertEqual(response.status_code, 201)
         self.assertEqual(Client.objects.count(), 1)
@@ -40,8 +38,7 @@ class CreateClientsViewTest(APITestCase):
         url = reverse('create-clients', kwargs={'pk': self.user.pk})
         response = self.client.post(url, self.invalid_data, format='json')
 
-        if response.status_code == 400:
-            print("Errores:", response.data)
+     
         
         self.assertEqual(response.status_code, 400)
         self.assertIn('paid_money', response.data)
@@ -50,7 +47,6 @@ class CreateClientsViewTest(APITestCase):
         url = reverse('create-clients', kwargs={'pk': 999})
         response = self.client.post(url, self.valid_data, format='json')
 
-        if response.status_code == 400:
-            print("Errores:", response.data)
+      
         
         self.assertEqual(response.status_code, 400)
