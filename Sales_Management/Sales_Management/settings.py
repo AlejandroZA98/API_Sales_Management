@@ -83,7 +83,7 @@ DATABASES = {
         'NAME': 'BurritosDB',
         'USER': 'postgres',
         'PASSWORD': 'ale1234',
-        'HOST': 'localhost',  
+        'HOST': 'db',  
         'PORT': '5432',       
     }
 }

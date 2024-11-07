@@ -15,3 +15,5 @@ Sales_Management/sales_management_app/api/views/*__pycache__
 Sales_Management/sales_management_app/api/models/*__pycache__
 Sales_Management/sales_management_app/migrations
 Sales_Management/users_app/migrations
+Dockerfile
+*.yml
