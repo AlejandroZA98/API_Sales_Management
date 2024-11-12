@@ -3,9 +3,11 @@ from sales_management_app.api.models.clients_model import Client
 from sales_management_app.api.serializers.clients_serializer import ClientSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
 
 class CreateClientsView(APIView):
+    permission_classes=[IsAuthenticated]
+
     def post(self, request,pk):
         data=request.data
         data['user']=pk

@@ -5,8 +5,11 @@ from sales_management_app.api.models.sells_model import Sell
 from sales_management_app.api.models.products_model import Product
 from sales_management_app.api.models.inventary_products_model import InventaryProducts
 from django.shortcuts import get_object_or_404
+from rest_framework.permissions import IsAuthenticated
 
 class CreateSellsView(APIView):
+    permission_classes=[IsAuthenticated]
+
     def post(self, request, pk):
         data = request.data
         data['user'] = pk

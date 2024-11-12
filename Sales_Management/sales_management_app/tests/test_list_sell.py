@@ -2,9 +2,10 @@ from rest_framework.test import APITestCase
 from django.urls import reverse
 from rest_framework import status
 from sales_management_app.api.models.sells_model import Sell
-from sales_management_app.api.models.clients_model import Client  # Importa el modelo de Client
+from sales_management_app.api.models.clients_model import Client
 from sales_management_app.api.serializers.sells_serializer import SellSerializer
 from django.contrib.auth.models import User
+from rest_framework_simplejwt.tokens import RefreshToken  
 
 class SellDetailViewTest(APITestCase):
     def setUp(self):
@@ -30,11 +31,13 @@ class SellDetailViewTest(APITestCase):
 
         self.url = reverse('sell-detail', kwargs={'pk': self.sell.pk})
 
+        refresh = RefreshToken.for_user(self.user)
+        self.token = str(refresh.access_token)
+
     def test_get_sell_detail_success(self):
-        response = self.client.get(self.url)
+        response = self.client.get(self.url, HTTP_AUTHORIZATION=f"Bearer {self.token}")
         
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         
         serializer = SellSerializer(self.sell, context={'request': response.wsgi_request})
         self.assertEqual(response.data, serializer.data)
-
