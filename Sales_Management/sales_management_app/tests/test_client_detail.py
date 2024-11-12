@@ -11,8 +11,7 @@ class ClientDetailViewTest(APITestCase):
     def setUp(self):
         self.user = User.objects.create_user(username='testuser', password='password123')
         self.client = APIClient()
-        self.client.login(username='testuser', password='password123') 
-
+        self.client.force_authenticate(user=self.user) 
         self.client_obj = Client.objects.create(
             user=self.user,
             name='John Doe',

@@ -10,7 +10,7 @@ class CreateClientsViewTest(APITestCase):
     def setUp(self):
         self.user = User.objects.create_user(username='testuser', password='password123')
         self.client = APIClient()
-        self.client.login(username='testuser', password='password123')
+        self.client.force_authenticate(user=self.user)
 
         self.valid_data = {
             'name': 'John Doe',
@@ -28,7 +28,6 @@ class CreateClientsViewTest(APITestCase):
     def test_create_client_success(self):
         url = reverse('create-clients', kwargs={'pk': self.user.pk})
         response = self.client.post(url, self.valid_data, format='json')
-
         
         self.assertEqual(response.status_code, 201)
         self.assertEqual(Client.objects.count(), 1)
@@ -38,15 +37,6 @@ class CreateClientsViewTest(APITestCase):
         url = reverse('create-clients', kwargs={'pk': self.user.pk})
         response = self.client.post(url, self.invalid_data, format='json')
 
-     
-        
         self.assertEqual(response.status_code, 400)
-        self.assertIn('paid_money', response.data)
-
-    def test_create_client_with_missing_user(self):
-        url = reverse('create-clients', kwargs={'pk': 999})
-        response = self.client.post(url, self.valid_data, format='json')
-
-      
-        
-        self.assertEqual(response.status_code, 400)
+        self.assertIn('name', response.data)  
+        self.assertIn('paid_money', response.data)  

@@ -1,4 +1,4 @@
-from rest_framework.test import APITestCase
+from rest_framework.test import APITestCase, APIClient
 from django.urls import reverse
 from rest_framework import status
 from django.contrib.auth.models import User
@@ -8,6 +8,9 @@ from sales_management_app.api.models.debts_to_pay_model import DebtstoPay
 class CreateDebttoPayTest(APITestCase):
     def setUp(self):
         self.user = User.objects.create_user(username="testuser", password="testpass")
+        self.client = APIClient()
+        self.client.force_authenticate(user=self.user)
+        
         self.client_instance = Client.objects.create(
             name="Cliente de prueba",
             user=self.user,
@@ -34,7 +37,7 @@ class CreateDebttoPayTest(APITestCase):
     def test_create_debt_invalid_data(self):
         data = {
             "client": self.client_instance.id,
-            "amount_sell": "invalid",
+            "amount_sell": "invalid", 
             "amount_paid": 200,
             "debt": 300,
         }

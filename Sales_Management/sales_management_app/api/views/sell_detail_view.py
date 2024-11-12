@@ -3,18 +3,21 @@ from rest_framework.response import Response
 from rest_framework import status
 from sales_management_app.api.models.sells_model import Sell
 from sales_management_app.api.serializers.sells_serializer import SellSerializer
+from rest_framework.permissions import IsAuthenticated
 
 class SellDetailView(APIView):
+    permission_classes=[IsAuthenticated]
+
     def get(self, request, pk):
         try:
-            sell = Sell.objects.get(id=pk)
+            sell = Sell.objects.get(pk=pk)
         except Sell.DoesNotExist:
             return Response({'error':'Sell not found'},status=status.HTTP_404_NOT_FOUND)
         
         serializer = SellSerializer(sell,context={'request': request})
         return Response(serializer.data)
     def put(self, request, pk):
-        sell = Sell.objects.get(id=pk)
+        sell = Sell.objects.get(pk=pk)
         serializer = SellSerializer(sell, data=request.data,context={'request': request})
         
         if serializer.is_valid():

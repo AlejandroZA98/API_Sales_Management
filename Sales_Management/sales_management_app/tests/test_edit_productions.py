@@ -5,10 +5,13 @@ from sales_management_app.api.models.production_model import Production
 from sales_management_app.api.models.inventary_ingredients_model import InventaryIngredients
 from sales_management_app.api.serializers.production_serializer import ProductionSerializer
 from django.contrib.auth.models import User
-
+from rest_framework_simplejwt.tokens import RefreshToken  
 class ProductionDetailViewTest(APITestCase):
     def setUp(self):
         self.user = User.objects.create_user(username="testuser", password="testpass")
+        
+        refresh = RefreshToken.for_user(self.user)
+        self.access_token = str(refresh.access_token)
         
         self.ingredient1 = InventaryIngredients.objects.create(
             user=self.user,
@@ -31,7 +34,7 @@ class ProductionDetailViewTest(APITestCase):
         self.url = reverse('production-detail', kwargs={'pk': self.production.pk})
 
     def test_get_production_detail_success(self):
-        response = self.client.get(self.url)
+        response = self.client.get(self.url, HTTP_AUTHORIZATION=f"Bearer {self.access_token}")
         
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         
@@ -40,7 +43,8 @@ class ProductionDetailViewTest(APITestCase):
 
     def test_get_production_detail_not_found(self):
         url = reverse('production-detail', args=[999])
-        response = self.client.get(url)
+        
+        response = self.client.get(url, HTTP_AUTHORIZATION=f"Bearer {self.access_token}")
         
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
         self.assertEqual(response.data['error'], 'Production not found')
@@ -49,7 +53,7 @@ class ProductionDetailViewTest(APITestCase):
         initial_tomate_quantity = self.ingredient1.cuantity
         initial_cebolla_quantity = self.ingredient2.cuantity
         
-        response = self.client.delete(self.url)
+        response = self.client.delete(self.url, HTTP_AUTHORIZATION=f"Bearer {self.access_token}")
         
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         
@@ -66,7 +70,8 @@ class ProductionDetailViewTest(APITestCase):
 
     def test_delete_production_not_found(self):
         url = reverse('production-detail', args=[999])
-        response = self.client.delete(url)
+        
+        response = self.client.delete(url, HTTP_AUTHORIZATION=f"Bearer {self.access_token}")
         
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
         self.assertEqual(response.data['error'], 'production not found')
